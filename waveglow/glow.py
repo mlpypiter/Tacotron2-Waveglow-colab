@@ -34,8 +34,8 @@ import torch.nn.functional as F
 def fused_add_tanh_sigmoid_multiply(input_a, input_b, n_channels):
     n_channels_int = n_channels[0]
     in_act = input_a+input_b
-    t_act = torch.nn.functional.tanh(in_act[:, :n_channels_int, :])
-    s_act = torch.nn.functional.sigmoid(in_act[:, n_channels_int:, :])
+    t_act = torch.tanh(in_act[:, :n_channels_int, :])
+    s_act = torch.sigmoid(in_act[:, n_channels_int:, :])
     acts = t_act * s_act
     return acts
 
@@ -88,7 +88,7 @@ class Invertible1x1Conv(torch.nn.Module):
         if reverse:
             if not hasattr(self, 'W_inverse'):
                 # Reverse computation
-                W_inverse = W.inverse()
+                W_inverse = W.float().inverse()
                 W_inverse = Variable(W_inverse[..., None])
                 if z.type() == 'torch.cuda.HalfTensor':
                     W_inverse = W_inverse.half()

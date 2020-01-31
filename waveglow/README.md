@@ -12,7 +12,7 @@ using only a single network, trained using only a single cost function:
 maximizing the likelihood of the training data, which makes the training
 procedure simple and stable.
 
-Our [PyTorch] implementation produces audio samples at a rate of 1200
+Our [PyTorch] implementation produces audio samples at a rate of 2750
 kHz on an NVIDIA V100 GPU. Mean Opinion Scores show that it delivers audio
 quality as good as the best publicly available WaveNet implementation.
 
@@ -31,7 +31,9 @@ Visit our [website] for audio samples.
 
 2. Install [PyTorch 1.0]  
 
-3. Install other requirements `pip3 install -r requirements.txt`
+3. Install [Apex]
+
+4. Install other requirements `pip3 install -r requirements.txt`
 
 ## Generate audio with our pre-existing model
 
@@ -62,6 +64,8 @@ with fused residual and skip connections.
 
    For multi-GPU training replace `train.py` with `distributed.py`.  Only tested with single node and NCCL.
 
+   For mixed precision training set `"fp16_run": true` on `config.json`.
+
 4. Make test set mel-spectrograms
 
    `python mel2samp.py -f test_files.txt -o . -c config.json`
@@ -82,6 +86,7 @@ with fused residual and skip connections.
 [Glow]: https://blog.openai.com/glow/
 [WaveNet]: https://deepmind.com/blog/wavenet-generative-model-raw-audio/
 [PyTorch]: http://pytorch.org
-[published model]: https://drive.google.com/file/d/1cjKPHbtAMh_4HTHmuIGNkbOkPBD9qwhj/view?usp=sharing
+[published model]: https://drive.google.com/file/d/1WsibBTsuRg_SF2Z6L6NFRTT-NjEy1oTx/view?usp=sharing
 [mel-spectrograms]: https://drive.google.com/file/d/1g_VXK2lpP9J25dQFhQwx7doWl_p20fXA/view?usp=sharing
 [LJ Speech Data]: https://keithito.com/LJ-Speech-Dataset
+[Apex]: https://github.com/nvidia/apex
